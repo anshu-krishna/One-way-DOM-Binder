@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>DOMDocumentBinder Example</title>
+	<script src="dom-binder.js"></script>
+</head>
+
+<body>
+	<div data-binder="obj1">
+		Hello {{name}}
+	</div>
+	<div data-binder="obj2">
+		Hello {{name}}
+	</div>
+	<div data-binder="obj1">
+		<b>Name:</b> {{name}}
+		<br />
+		<b>Age:</b> {{age}}
+	</div>
+	<script>
+		DOMDocumentBinder.init();
+		let binders = DOMDocumentBinder.binders;
+		binders.obj1.name = "Anshu";
+		binders.obj1.age = 25;
+
+		binders.obj2.addProperty("name", "Krishna");
+		binders.obj2.addProperty("age", 30);
+
+		console.log(JSON.stringify(binders, null, "    "));
+		console.log(binders);
+	</script>
+</body>
+
+</html>

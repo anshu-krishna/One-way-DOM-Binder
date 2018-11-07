@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>DOMElementBinder Example</title>
+	<script src="dom-binder.js"></script>
+	<style>
+		div.test {
+			border: 1px solid;
+			margin: 10px;
+			padding: 10px 15px;
+		}
+		[data-test]::after, [data-name]::after, [data-age]::after {
+			display: inline-block;
+			border: 1px solid blue;
+			color: red;
+			margin: 5px;
+			padding: 10px 15px;
+		}
+		[data-test]::after {
+			content: "Attribute [data-test]: " attr(data-test);
+		}
+		[data-name]::after {
+			content: "Attribute [data-name]: " attr(data-name);
+		}
+		[data-age]::after {
+			content: "Attribute [data-age]: " attr(data-age);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test">
+		Name: {{name}}; Age: {{age}};
+		<div>
+			Name: <b>{{name}}</b>; Age: <b>{{age}}</b>;
+		</div>
+		<div data-test="Name: {{name}}; Age: {{age}};"></div>
+		<span data-name="{{name}}" data-age="{{age}}"></span>
+	</div>
+	<div class="test">
+		Name: {{name}}
+		<div data-test="{{name}}-{{age}}-test">
+			Welcome <b data-name="{{name}}">{{name}}</b>
+		</div>
+	</div>
+	<script>
+		let nodes = document.querySelectorAll("div.test");
+
+		// let binder = new DOMBinder(nodes[0]);
+		// binder.name = "Anshu";
+		// binder.bindElements(nodes[1]);
+		// binder.age = 25;
+
+		let binder = new DOMElementBinder(...nodes);
+		binder.name = "Anshu";
+		binder.age = 25;
+
+		// binder.unbindElements(...nodes);
+		// binder.age = 30;
+
+		let span = document.createElement("span");
+		span.innerHTML = "<b>Anshu</b> <i>Krishna</i>";
+		binder.name = span;
+	</script>
+</body>
+
+</html>
